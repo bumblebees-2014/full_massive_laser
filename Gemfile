@@ -29,6 +29,9 @@ gem 'spring',        group: :development
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Travis CI
+gem 'travis-lint'
+
 # Test group
 gem "rspec-rails", :group => [:test, :development]
 group :test do

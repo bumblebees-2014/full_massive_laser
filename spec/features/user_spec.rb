@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.feature '#Register' do
-  scenario 'Successful registration' do
+	scenario 'Successful registration' do
 
 		visit '/users/new'
 
 		within "form" do
-			fill_in "Name", with: "Some Guy"
-	    fill_in "Email", with: "user@example.com"
-	    fill_in "Password", with: "password"
-	    fill_in "Password confirmation", with: "password"
-	    click_button "Register"
-  end
-  expect(page).to have_content 'You have signed in successfully'
+
+			fill_in('user[name]', :with => 'Some Guy')
+      fill_in('user[email]', :with => 'user@example.com')
+      fill_in('user[password]', :with => 'password')
+      find('[type="submit"]').click
+		end
+		  expect(page).to have_selector("[data-name='success']", text: 'Your account has been created successfully')
+	end
 end
