@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
-
+ruby "2.1.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 # Use postgresql as the database for Active Record
-gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -32,9 +31,15 @@ gem 'bcrypt', '~> 3.1.7'
 # Test group
 gem "rspec-rails", :group => [:test, :development]
 group :test do
-  gem "factory_girl_rails"
-  gem "capybara"
-  gem 'shoulda-matchers', require: false
+	gem "factory_girl_rails"
+	gem "capybara"
+	gem 'shoulda-matchers', require: false
+end
+
+# production group
+group :production do
+	gem 'rails_12factor'
+	gem 'pg'
 end
 
 
