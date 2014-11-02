@@ -9,10 +9,6 @@
 
   </div>
   <% if session[:user_id].nil? %>
-  <div class="right">
-    <%= link_to "Register", new_user_path, class: "button py2 m0 button-nav-dark" %>
-    <%= link_to "Sign in", signin_path, class: "button py2 m0 button-nav-dark" %>
-  </div>
   <% else %>
   <div class="right">
     <%= link_to "Sign out", signout_path, method: :delete, class: "button py2 m0 button-nav-dark" %>

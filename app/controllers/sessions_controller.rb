@@ -3,27 +3,22 @@ skip_before_filter :require_login
 	def new
 	end
 
-	def create
-		user = User.where(:email => params[:signin][:email]).first
-		if user && user.authenticate(params[:signin][:password])
-			session[:user_id] = user.id
-			flash[:success] = ["You have signed in successfully."]
-			if user.pro?
-				redirect_to user
-			else
-				redirect_to new_ticket_path
-			end
-		else
-			flash[:error] = ["Login credentials incorrect, please try again"]
-			render :new
-		end
-	end
 
-	def destroy
-		reset_session
-		flash[:success] = ["You have signed out successfully."]
-		redirect_to root_url
-	end
+	 def create
+    @user = User.find_or_create_from_auth_hash(auth_hash)
+    self.current_user = @user
+    redirect_to '/'
+  end
 
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path
+  end
+
+  protected
+
+  def auth_hash
+    request.env['omniauth.auth']
+  end
 
 end

@@ -47,3 +47,5 @@ group :production do
 	gem 'rails_12factor'
 end
 
+gem "omniauth-google-oauth2"
+gem "dotenv-rails"
