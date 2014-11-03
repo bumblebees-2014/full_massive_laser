@@ -1,29 +1,45 @@
-<div class="clearfix">
-  <% @tickets.each do |ticket| %>
-  <div class="col col-4 p1">
-    <div class="overflow-hidden bg-white border rounded">
-      <div class="p2 bg-light-gray">
-        <h1 class="h4 m0">
-          <span class="black"><%= ticket.shortened_title %></span>
-          <% if ticket.professional.nil? %>
-          <span class="h4 inline-block button-small white bg-red rounded right">
-           Unclaimed
-         </span>
-         <% else %>
-         <span class="h4 inline-block button-small white bg-green rounded right">
-           Claimed
-         </span>
-         <% end %>
-       </h1>
-     </div>
-     <div class="p2 center">
-       <%= link_to ticket do %>
-       <button type="button" class="h5 button-blue">View</button>
-       <% end %>
+  <div class="clearfix">
+    <div class="col col-12 p1">
+      <div class="overflow-hidden bg-white border rounded">
+        <div class="p2 bg-yellow">
+          <h1 class="h2 m0">
+            <%= current_user.professions.first.name %>
+          </h1>
+        </div>
 
-     </div>
-   </div>
- </div>
- <% end %>
-</div>
-</div>
+          <table class="table-light">
+            <thead>
+              <tr>
+                <th>Client</th> <th>Category</th> <th>Title</th><th>Status</th><th>Complete?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <div class="p1">
+              <% @tickets.each do |ticket| %>
+              <tr data-link="<%= ticket_path(ticket) %>">
+                <td><%= link_to "#{ticket.user.name}", ticket.user %></td>
+                <td><%= ticket.profession.name %></td>
+                <td><%= link_to "#{ticket.shortened_title}", ticket, class: "no-underline" %></td>
+                <td>
+                  <% if ticket.professional.nil? %>
+                  <span class="bg-red white button-small rounded">Unclaimed</span>
+                  <% else %>
+                  <span class="bg-green white button-small rounded">Claimed</span>
+                  <% end %>
+                </td>
+                <td>
+                  <% if ticket.closed == false %>
+                  <span class="bg-green white button-small rounded">OPEN</span>
+                  <% else %>
+                  <span class="bg-mid-gray white button-small rounded">CLOSED</span>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+

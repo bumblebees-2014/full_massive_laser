@@ -11,7 +11,7 @@ class TicketsController < ApplicationController
     redirect_to root_path unless current_user.pro?
     @tickets = []
     current_user.professions.each do |profession|
-      @tickets.push(profession.tickets.where(professional_id: nil))
+      @tickets.push(profession.tickets.where(closed: false).order(created_at: :desc))
     end
     @tickets.flatten!
   end
